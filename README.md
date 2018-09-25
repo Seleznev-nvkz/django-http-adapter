@@ -36,14 +36,18 @@ INSTALLED_APPS = (
 )
 ```
 and `urls.py`:
+
 ``` urlpatterns += (url(r'^your_receive_url/', include('django_http_adapter.urls')),) ```
+
 To store in DB failed sendings:
+
 ``` python manage.py migrate ```
+
 ### Required settings
 
 Name|Description|Example
 ------------ | ------------- | ------
-HTTP_ADAPTER_SERVERS|Dictionary with servers to send, where key is Id of server and value is url |{2: "https://example.com/your_receive_url/"}
+HTTP_ADAPTER_SERVERS|Dictionary with servers to send, where key is Id of server and value is url |{2:'https://example.com/your_url/'}
 HTTP_ADAPTER_APP_ID|Id of current server|1
 
 ### Optional settings
