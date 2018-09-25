@@ -24,7 +24,7 @@ And now data will send to other servers on save Model.
 - python 3.5+
 - requests 2.19+
 ### Installation
-``` pip install git+ ```
+``` pip install git+git://github.com/Seleznev-nvkz/django-http-adapter.git@master ```
 
 Should update `INSTALLED_APPS`
 
