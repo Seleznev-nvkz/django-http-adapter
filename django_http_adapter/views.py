@@ -13,8 +13,8 @@ class HTTPAdapterView(View):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        """ Should contain the header with id of the server, which sent the request
-            also 'receiver' in data from the request to launch handler """
+        """ Should contain the header with id of the server, which sent the request.
+            Also 'receiver' in data from the request to launch handler """
         body = request.body.decode('utf-8')
 
         try:
