@@ -1,7 +1,8 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from http_adapter.exceptions import HTTPClientException
+
+from django_http_adapter.exceptions import HTTPClientException
 
 
 class HTTPRetry(models.Model):
@@ -25,7 +26,7 @@ class HTTPRetry(models.Model):
                                      defaults={'exception_info': str(exc)})
 
     def retry(self):
-        from http_adapter.client import http_adapter_clients
+        from django_http_adapter.client import http_adapter_clients
 
         if self.content_object:
             try:
