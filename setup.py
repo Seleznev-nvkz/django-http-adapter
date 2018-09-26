@@ -1,6 +1,6 @@
 from os.path import join, dirname
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 LONG_DESCRIPTION = open(join(dirname(__file__), 'README.md')).read()
 
@@ -22,7 +22,7 @@ CLASSIFIERS = [
 setup(
     name='django_http_adapter',
     version='1.0.0',  # When changing this, remember to change it in __init__.py
-    packages=['django_http_adapter'],
+    packages=find_packages(include=('django_http_adapter', 'django_http_adapter.*')),
     author='Konstantin Seleznev',
     author_email='seleznev.nvkz@gmail.com',
     url='https://github.com/Seleznev-nvkz/django-http-adapter',
