@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from django_http_adapter.models import HTTPRetry
+from django_http_adapter.models import HTTPRetry, HTTPRetryData
 
 
 def retry_to_send(modeladmin, request, queryset):
@@ -17,4 +17,10 @@ class HTTPRetryAdmin(admin.ModelAdmin):
     actions = (retry_to_send,)
 
 
+class HTTPRetryDataAdmin(admin.ModelAdmin):
+    list_display = ('app_id', 'created_timestamp')
+    actions = (retry_to_send,)
+
+
+admin.site.register(HTTPRetryData, HTTPRetryDataAdmin)
 admin.site.register(HTTPRetry, HTTPRetryAdmin)

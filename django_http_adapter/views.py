@@ -1,12 +1,9 @@
+import json
+
 from django.http import JsonResponse
 from django.views.generic import View
 
 from django_http_adapter.utils import get_module_attr
-
-try:
-    import ujson as json
-except ImportError:
-    import json
 
 
 class HTTPAdapterView(View):

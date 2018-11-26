@@ -69,7 +69,6 @@ To retry failed sendings run:
 > python manage.py http_retry
 
 ### Other features
-- Can using `ujson` instead common `json`. Just install `ujson` and this will be auto change.
 - Exists simple admin form with custom action `Try to resend items` to retry selected instances.
 
 ## ToDo

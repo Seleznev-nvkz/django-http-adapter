@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('object_id', models.PositiveIntegerField()),
                 ('content_type',
                  models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
-                ('app_id', models.IntegerField(default=100)),
+                ('app_id', models.IntegerField()),
             ],
             options={'ordering': ('-created_timestamp',), 'verbose_name_plural': 'HttpRetry'},
         ),

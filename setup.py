@@ -21,7 +21,7 @@ CLASSIFIERS = [
 
 setup(
     name='django_http_adapter',
-    version='1.0.2',  # When changing this, remember to change it in __init__.py
+    version='1.1.0',  # When changing this, remember to change it in __init__.py
     packages=find_packages(include=('django_http_adapter', 'django_http_adapter.*')),
     author='Konstantin Seleznev',
     author_email='seleznev.nvkz@gmail.com',

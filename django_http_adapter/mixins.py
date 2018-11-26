@@ -22,7 +22,7 @@ class HTTPMixin:
     def http_send(self):
         """ send data to all apps for sending, excluding id of app whence was received """
         for server_id in self.get_http_apps() - {self.http_from}:
-            http_adapter_clients[server_id].send_instance(self)
+            http_adapter_clients[server_id].send(self)
 
     def get_http_apps(self) -> set:
         """ :return set of all apps for sending """
