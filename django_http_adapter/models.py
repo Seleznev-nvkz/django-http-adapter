@@ -65,4 +65,4 @@ class HTTPRetryData(AbsHTTPRetry):
         cls.objects.update_or_create(data=post_data, app_id=app_id, defaults={'exception_info': str(exc)})
 
     def retry(self):
-        self._retry_data(self.data)
+        self._retry_data(json.loads(self.data))
