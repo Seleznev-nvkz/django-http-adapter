@@ -1,7 +1,7 @@
 from importlib import import_module
 
 
-def get_module_attr(path):
+def get_module_attr(path: str):
     """ getter for path like user.model.User or user.model.User:init """
 
     module, attr = path.rsplit('.', 1)
@@ -11,10 +11,10 @@ def get_module_attr(path):
     return getattr(import_module(module), attr)
 
 
-def send_data_by_http(data: dict, receiver: str, server_id: int):
+def send_data_by_http(data: dict, receiver: str, server_id: int, thread: bool = True):
     """ send data to receiver by server_id """
 
     from django_http_adapter.client import http_adapter_clients
 
     data['receiver'] = receiver
-    http_adapter_clients[server_id].send(data)
+    return http_adapter_clients[server_id].send(data, thread)

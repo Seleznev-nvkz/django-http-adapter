@@ -40,7 +40,7 @@ class BaseHTTPClient:
             try:
                 response = self.session.post(self.url, data=post_data, headers={'Content-Type': 'application/json'})
                 if response.ok:
-                    return
+                    return response.json()
                 else:
                     # if something wrong in data
                     bad_responses.append({'status': response.status_code, 'content': response.json()})
@@ -50,7 +50,7 @@ class BaseHTTPClient:
             sleep(settings.HTTP_ADAPTER_SLEEP_TIME)
         raise HTTPClientException(message='Unsuccessful Send {} tries'.format(self.tries), data=bad_responses)
 
-    def send(self, input_data):
+    def send(self, input_data, thread=True):
         """ Send data, If sending will fail - will create HTTPRetryData for resending in future
         """
 
@@ -60,14 +60,14 @@ class BaseHTTPClient:
 
         def make_request(data):
             try:
-                self._send(data)
+                return self._send(data)
             except HTTPClientException as e:
                 self.retry_model.create_from_exc(data, self.app_id, e)
 
-        if settings.HTTP_ADAPTER_USE_THREAD:
+        if settings.HTTP_ADAPTER_USE_THREAD and thread:
             Thread(target=threading_request, args=(input_data,)).start()
         else:
-            make_request(input_data)
+            return make_request(input_data)
 
 
 class HTTPDataClient(BaseHTTPClient):
@@ -78,7 +78,7 @@ class HTTPInstanceClient(BaseHTTPClient):
     retry_model = HTTPRetry
 
     def _send(self, instance):
-        super()._send(instance.get_http_data())
+        return super()._send(instance.get_http_data())
 
 
 class HTTPClient:
@@ -86,11 +86,9 @@ class HTTPClient:
         self.data_client = HTTPDataClient(app_id)
         self.instance_client = HTTPInstanceClient(app_id)
 
-    def send(self, data):
-        if isinstance(data, Model):
-            self.instance_client.send(data)
-        else:
-            self.data_client.send(data)
+    def send(self, data, thread=True):
+        client = self.instance_client if isinstance(data, Model) else self.data_client
+        return client.send(data, thread)
 
 
 semaphore = BoundedSemaphore(settings.HTTP_ADAPTER_MAX_THREADS)
