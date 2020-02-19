@@ -1,4 +1,6 @@
+import sys
 import json
+import traceback
 
 from django.http import JsonResponse
 from django.views.generic import View
@@ -20,4 +22,6 @@ class HTTPAdapterView(View):
             app_id = int(request.META['HTTP_HTTP_ADAPTER_APP'])
             return JsonResponse({'result': handler(http_from=app_id, **data)})
         except Exception as e:
-            return JsonResponse({'error': str(e), 'data': body}, status=400)
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            trace = traceback.format_exception(exc_type, exc_value, exc_tb)
+            return JsonResponse({'error': str(trace), 'data': body}, status=400)
