@@ -1,4 +1,6 @@
+import sys
 import json
+import traceback
 from threading import Thread, BoundedSemaphore
 from time import sleep
 
@@ -46,9 +48,12 @@ class BaseHTTPClient:
                     bad_responses.append({'status': response.status_code, 'content': response.json()})
             except Exception as e:
                 # if something wrong with server or response
-                bad_responses.append({'error': str(e)})
+                exc_type, exc_value, exc_tb = sys.exc_info()
+                trace = traceback.format_exception(exc_type, exc_value, exc_tb)
+                bad_responses.append({'error': str(trace)})
             sleep(settings.HTTP_ADAPTER_SLEEP_TIME)
-        raise HTTPClientException(message='Unsuccessful Send {} tries'.format(self.tries), data=bad_responses)
+        raise HTTPClientException(message='Unsuccessful Send {} tries to {}'.format(self.tries, self.url),
+                                  data=bad_responses)
 
     def send(self, input_data, thread=True):
         """ Send data, If sending will fail - will create HTTPRetryData for resending in future
