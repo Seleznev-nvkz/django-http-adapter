@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 from threading import Thread, BoundedSemaphore
 from time import sleep
 
@@ -80,14 +81,32 @@ class HTTPInstanceClient(BaseHTTPClient):
     def _send(self, instance):
         return super()._send(instance.get_http_data())
 
+class HTTPDevClient(BaseHTTPClient):
+
+    def send(self, data, thread=True):
+        if isinstance(data, Model):
+            data = data.get_http_data()
+        print('-' * 100)
+        print('URL: ', self.url)
+        print('App ID: ', self.app_id)
+        print('Payload:')
+        pprint(data)
+        print('-' * 100)
+
 
 class HTTPClient:
     def __init__(self, app_id: int):
         self.data_client = HTTPDataClient(app_id)
         self.instance_client = HTTPInstanceClient(app_id)
+        self.dev_client = HTTPDevClient(app_id)
 
     def send(self, data, thread=True):
-        client = self.instance_client if isinstance(data, Model) else self.data_client
+        if settings.HTTP_ADAPTER_MODE == 'dev':
+            client = self.dev_client
+        elif isinstance(data, Model):
+            client = self.instance_client
+        else:
+            client = self.data_client
         return client.send(data, thread)
 
 
