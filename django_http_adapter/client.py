@@ -86,12 +86,13 @@ class HTTPDevClient(BaseHTTPClient):
     def send(self, data, thread=True):
         if isinstance(data, Model):
             data = data.get_http_data()
-        print('-' * 100)
+        print('-' * 39, 'http_adapter', '-' * 39)
         print('URL: ', self.url)
         print('App ID: ', self.app_id)
         print('Payload:')
         pprint(data)
         print('-' * 100)
+        return {'result': 'OK'}
 
 
 class HTTPClient:
