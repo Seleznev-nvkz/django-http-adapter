@@ -1,5 +1,7 @@
 from django.conf import settings
 
+HTTP_ADAPTER_MODE = getattr(settings, 'HTTP_ADAPTER_MODE', 'live')
+
 HTTP_ADAPTER_SEND_TRIES = getattr(settings, 'HTTP_ADAPTER_SEND_TRIES', 3)
 HTTP_ADAPTER_SLEEP_TIME = getattr(settings, 'HTTP_ADAPTER_SLEEP_TIME', 0.5)
 HTTP_ADAPTER_USE_THREAD = getattr(settings, 'HTTP_ADAPTER_USE_THREAD', True)

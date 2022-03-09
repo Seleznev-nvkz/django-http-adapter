@@ -62,6 +62,7 @@ HTTP_ADAPTER_POOL_BLOCK|Whether the connection pool should block for connections
 HTTP_ADAPTER_POOL_COUNT|Size of pool. Helpful for using threads. Should be equal or more than HTTP_ADAPTER_MAX_THREADS.|10
 HTTP_ADAPTER_POOL_SIZE|The number of urllib3 connection pools to cache. Should be equal or more than urls for app you have.| 2
 HTTP_ADAPTER_LOGGER|Name of logger for using in package|'django.request'
+HTTP_ADAPTER_MODE|One of 'live' and 'dev'|'live'
 
 ## Extra info
 ### Django Management Commands
