@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-http-adapter"
+version = "1.1.1"
+description = "Simple third-party application for communicating back-end systems on Django using HTTP"
+readme = "README.md"
+license = "Unlicense"
+authors = [
+    {name = "Konstantin Seleznev", email = "seleznev.nvkz@gmail.com"}
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6", 
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Framework :: Django",
+    "Framework :: Django :: 1.11",
+    "Framework :: Django :: 2.0",
+    "Framework :: Django :: 2.1",
+]
+dependencies = [
+    "django>=1.11",
+    "requests>=2.19"
+]
+requires-python = ">=3.5"
+
+[project.urls]
+Homepage = "https://github.com/Seleznev-nvkz/django-http-adapter"
+Repository = "https://github.com/Seleznev-nvkz/django-http-adapter"
+
+[tool.setuptools.packages.find]
+include = ["django_http_adapter*"]
